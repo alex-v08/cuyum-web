@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useCallback, useRef, useEffect } from 'react';
+import { useMemo, useCallback, useRef, useEffect, useState } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import gsap from 'gsap';
@@ -44,6 +44,7 @@ export function ProductosCatalog() {
   const router = useRouter();
   const pathname = usePathname();
   const gridRef = useRef<HTMLDivElement>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Re-animate cards whenever the filtered list changes
   useEffect(() => {
@@ -136,8 +137,23 @@ export function ProductosCatalog() {
           </div>
 
           <div className="catalog-layout">
+            {/* Sidebar toggle (mobile only) */}
+            <button
+              className="sidebar-toggle"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              aria-expanded={sidebarOpen}
+            >
+              <span>Filtros{(activeCategories.length + activeMaterials.length) > 0 ? ` (${activeCategories.length + activeMaterials.length})` : ''}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                {sidebarOpen
+                  ? <polyline points="18 15 12 9 6 15" />
+                  : <polyline points="6 9 12 15 18 9" />
+                }
+              </svg>
+            </button>
+
             {/* Sidebar */}
-            <aside className="catalog-sidebar" aria-label="Filtros">
+            <aside className={`catalog-sidebar${sidebarOpen ? ' open' : ''}`} aria-label="Filtros">
               <div className="sidebar-section">
                 <p className="sidebar-title">Categorías</p>
                 {CATEGORIAS_VALIDAS.map((cat) => {
