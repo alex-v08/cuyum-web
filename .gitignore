@@ -4,3 +4,9 @@ node_modules/
 .env*
 *.log
 .DS_Store
+
+# Odoo product images — generadas por fetch-odoo-products.ts, no commitear
+public/images/odoo/
+
+# Meta de sync (no es dato del sitio)
+src/data/products.meta.json

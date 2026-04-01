@@ -1,0 +1,112 @@
+{
+  "Panera Contrapared Premium": {
+    "featured": true,
+    "leadTimeDays": 15,
+    "tags": ["panera", "contrapared", "exhibidor", "premium", "MDF"],
+    "shortDescription": "Exhibidor contrapared con vidrio templado 4mm y 6 niveles de exhibición en 1.80m. Ideal para supermercados, farmacias y almacenes.",
+    "variantOverrides": {
+      "PCP-BL-MDF": { "colorHex": "#f5f5f0" },
+      "PCP-NG-MDF": { "colorHex": "#6b4226" },
+      "PCP-GR-MDF": { "colorHex": "#8a8a8a" }
+    }
+  },
+  "Mostrador Vitrina Alto": {
+    "featured": true,
+    "leadTimeDays": 15,
+    "tags": ["mostrador", "vitrina", "alto", "melamina", "atención"],
+    "shortDescription": "Mostrador con vitrina integrada en Melamina 18mm. 1.35m de alto, patas metálicas niveladoras. Para joyerías, perfumerías y boutiques.",
+    "variantOverrides": {
+      "MVA-BL-MEL": { "colorHex": "#f5f5f0" },
+      "MVA-NG-MEL": { "colorHex": "#6b4226" },
+      "MVA-WE-MEL": { "colorHex": "#2c1810" }
+    }
+  },
+  "Caramelera Sobre Mostrador": {
+    "featured": false,
+    "leadTimeDays": 7,
+    "tags": ["caramelera", "exhibidor", "mostrador", "impulso"],
+    "shortDescription": "Exhibidora de 1.35m para aprovechar el espacio horizontal del mostrador. Ideal para golosinas, cosméticos y productos de impulso.",
+    "variantOverrides": {
+      "CSM-BL-FOL": { "colorHex": "#f5f5f0" },
+      "CSM-NG-FOL": { "colorHex": "#6b4226" },
+      "CSM-GR-FOL": { "colorHex": "#8a8a8a" }
+    }
+  },
+  "Mostrador Vitrina Facturero Premium": {
+    "featured": true,
+    "leadTimeDays": 15,
+    "tags": ["mostrador", "vitrina", "facturero", "premium", "MDF"],
+    "shortDescription": "Mostrador bajo con vitrina en vidrio templado 4mm, puertas traseras y patas niveladoras. La opción premium para atención al cliente.",
+    "variantOverrides": {
+      "MVF-BL-MDF": { "colorHex": "#f5f5f0" },
+      "MVF-NG-MDF": { "colorHex": "#6b4226" },
+      "MVF-GR-MDF": { "colorHex": "#8a8a8a" }
+    }
+  },
+  "Estantería 020": {
+    "featured": false,
+    "leadTimeDays": 10,
+    "tags": ["estantería", "exhibidor", "folio", "6-niveles"],
+    "shortDescription": "6 niveles fijos en 1.80m de altura y 0.80m de ancho. Resistente, liviana y de fácil armado para cualquier local.",
+    "variantOverrides": {
+      "E020-BL-FOL": { "colorHex": "#f5f5f0" },
+      "E020-NG-FOL": { "colorHex": "#6b4226" },
+      "E020-GR-FOL": { "colorHex": "#8a8a8a" }
+    }
+  },
+  "Estantería Cubo": {
+    "featured": false,
+    "leadTimeDays": 10,
+    "tags": ["estantería", "cubo", "modular", "decoración"],
+    "shortDescription": "8 cubos modulares para exhibición decorativa o comercial. Versátil, disponible en múltiples colores para cualquier ambiente.",
+    "variantOverrides": {
+      "ECUB-BL-FOL": { "colorHex": "#f5f5f0" },
+      "ECUB-NT-FOL": { "colorHex": "#d4a574" },
+      "ECUB-CE-FOL": { "colorHex": "#a0522d" }
+    }
+  },
+  "Estantería 030": {
+    "featured": false,
+    "leadTimeDays": 10,
+    "tags": ["estantería", "almacenamiento", "folio", "4-estantes"],
+    "shortDescription": "4 estantes en 1.50m de altura y 30cm de profundidad. Ideal para trastienda, depósito o punto de venta.",
+    "variantOverrides": {
+      "E030-BL-FOL": { "colorHex": "#f5f5f0" },
+      "E030-NG-FOL": { "colorHex": "#6b4226" },
+      "E030-WE-FOL": { "colorHex": "#2c1810" }
+    }
+  },
+  "Estantería 180": {
+    "featured": false,
+    "leadTimeDays": 10,
+    "tags": ["estantería", "exhibidor", "góndola", "gran-capacidad"],
+    "shortDescription": "4 estantes en formato 1.80m × 1.80m para supermercados, ferreterías y almacenes. Gran capacidad de exhibición en un solo mueble.",
+    "variantOverrides": {
+      "E180-BL-FOL": { "colorHex": "#f5f5f0" },
+      "E180-NG-FOL": { "colorHex": "#6b4226" },
+      "E180-GR-FOL": { "colorHex": "#8a8a8a" }
+    }
+  },
+  "Estantería 180x020": {
+    "featured": true,
+    "leadTimeDays": 15,
+    "tags": ["estantería", "góndola", "comercial", "alto-volumen"],
+    "shortDescription": "16 estantes fijos en formato 1.80m × 1.80m. La góndola completa para supermercados, mayoristas y comercios de alto volumen.",
+    "variantOverrides": {
+      "E180X-BL-FOL": { "colorHex": "#f5f5f0" },
+      "E180X-NG-FOL": { "colorHex": "#6b4226" },
+      "E180X-GR-FOL": { "colorHex": "#8a8a8a" }
+    }
+  },
+  "Vitrina Estantes de Vidrio": {
+    "featured": true,
+    "leadTimeDays": 12,
+    "tags": ["vitrina", "vidrio", "joyería", "premium"],
+    "shortDescription": "Vitrina horizontal de 1.35m con 2 estantes de vidrio templado. Para joyería, perfumería y artículos de valor. Proyecta confianza y profesionalismo.",
+    "variantOverrides": {
+      "VEV-BL-FOL": { "colorHex": "#f5f5f0" },
+      "VEV-NG-FOL": { "colorHex": "#6b4226" },
+      "VEV-GR-FOL": { "colorHex": "#8a8a8a" }
+    }
+  }
+}

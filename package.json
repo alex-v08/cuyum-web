@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "cd .. && npx tsx scripts/fetch-odoo-products.ts",
     "start": "next start",
     "lint": "next lint"
   },
