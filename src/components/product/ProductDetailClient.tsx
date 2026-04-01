@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useCart } from '@/context/CartContext';
@@ -17,7 +17,6 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const { addItem, openCart } = useCart();
   const [selectedVariant, setSelectedVariant] = useState<Variant>(product.variants[0]);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -55,13 +54,18 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
       opacity: 0, scale: 0.97, duration: 0.18, ease: 'power2.in',
       onComplete: () => {
         setActiveImageIndex(index);
-        setImageLoaded(false);
         gsap.fromTo(imgRef.current,
           { opacity: 0, scale: 1.03 },
           { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' }
         );
       }
     });
+  }, [activeImageIndex]);
+
+  // Ensure image is visible once loaded (handles cached images where onLoad doesn't fire)
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img?.complete) gsap.set(img, { opacity: 1, scale: 1 });
   }, [activeImageIndex]);
 
   const handleVariantChange = useCallback((variant: Variant) => {
@@ -108,8 +112,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             ref={imgRef}
             src={imgPath(activeImage)}
             alt={`${product.name} — ${selectedVariant.color}`}
-            onLoad={() => setImageLoaded(true)}
-            style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+            onLoad={(e) => gsap.to(e.currentTarget, { opacity: 1, duration: 0.3 })}
           />
           {/* Badge overlay */}
           <div className="pd-gallery__badge">

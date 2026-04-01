@@ -469,6 +469,8 @@ input, select, textarea { font-family: inherit; }
   object-fit: cover;
   display: block;
   transition: transform 0.6s ease;
+  /* visible by default; GSAP overrides on entrance */
+  opacity: 1;
 }
 .pd-gallery__main:hover img {
   transform: scale(1.03);
