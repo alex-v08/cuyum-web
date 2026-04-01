@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import { buildProductWhatsAppURL } from '@/lib/whatsapp';
 import { formatCurrencyARS } from '@/lib/utils';
+import { imgPath } from '@/lib/assetPath';
 import type { Product, Variant } from '@/types/product.types';
 
 interface ProductDetailClientProps {
@@ -60,13 +60,11 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
       {/* Gallery */}
       <div>
         <div className="gallery-main">
-          <Image
-            src={activeImage}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imgPath(activeImage)}
             alt={`${product.name} — ${selectedVariant.color}`}
-            width={600}
-            height={600}
             style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-            priority
           />
         </div>
         {images.length > 1 && (
@@ -78,11 +76,10 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                 onClick={() => setActiveImageIndex(i)}
                 aria-label={`Ver imagen ${i + 1}`}
               >
-                <Image
-                  src={img}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={imgPath(img)}
                   alt={`${product.name} imagen ${i + 1}`}
-                  width={72}
-                  height={72}
                   style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                 />
               </button>
