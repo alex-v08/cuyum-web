@@ -1,27 +1,12 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Montserrat } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { GSAPProvider } from '@/components/animations/GSAPProvider';
 
-const cormorantGaramond = Cormorant_Garamond({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-display',
-  weight: ['300', '400', '500', '600', '700'],
-});
-
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-body',
-  weight: ['300', '400', '500', '600'],
-});
-
 export const metadata: Metadata = {
   title: {
-    default: 'CUYUM Amoblamientos — Diseño a Tu Medida | Las Heras, Mendoza',
-    template: '%s | CUYUM Amoblamientos',
+    default: 'CUYUM Muebles Comerciales — Fabricación artesanal | Mendoza, Argentina',
+    template: '%s | CUYUM Muebles Comerciales',
   },
   description:
     'Muebles comerciales y de hogar a medida fabricados en Las Heras, Mendoza. Mostradores, exhibidores, vitrinas y estanterías. Presupuesto por WhatsApp.',
@@ -32,19 +17,30 @@ export const metadata: Metadata = {
     'exhibidores mendoza',
     'vitrinas',
     'cuyum',
+    'muebles comerciales',
+    'fabricacion mendoza',
   ],
   openGraph: {
-    title: 'CUYUM Amoblamientos — Diseño a Tu Medida',
+    title: 'CUYUM Muebles Comerciales — Fabricación artesanal',
     description: 'Muebles comerciales y de hogar a medida. Fabricados en Mendoza.',
     type: 'website',
     locale: 'es_AR',
-    siteName: 'CUYUM Amoblamientos',
+    siteName: 'CUYUM Muebles Comerciales',
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${cormorantGaramond.variable} ${montserrat.variable}`}>
+    <html lang="es">
+      <head>
+        {/* Manrope + Inter + Material Symbols — single optimized request */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <GSAPProvider>
           <CartProvider>{children}</CartProvider>

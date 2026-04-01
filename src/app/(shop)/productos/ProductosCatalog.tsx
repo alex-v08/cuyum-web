@@ -2,16 +2,12 @@
 
 import { useMemo, useCallback, useRef, useEffect, useState } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import Link from 'next/link';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { products } from '@/data/products';
-import { filterProducts, sortProducts, formatPrice } from '@/lib/products';
+import { filterProducts, sortProducts } from '@/lib/products';
 import { CATEGORIAS_VALIDAS, MATERIALES_VALIDOS } from '@/lib/constants';
 import type { FilterState, SortOption } from '@/types/product.types';
-import { imgPath } from '@/lib/assetPath';
-
-gsap.registerPlugin(ScrollTrigger);
+import { ProductCard } from '@/components/common/ProductCard';
+import gsap from 'gsap';
 
 const CATEGORY_LABELS: Record<string, string> = {
   mostradores: 'Mostradores',
@@ -20,12 +16,13 @@ const CATEGORY_LABELS: Record<string, string> = {
   estanterias: 'Estanterías',
   gondolas: 'Góndolas',
   mesas: 'Mesas',
+  hogar: 'Hogar',
 };
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
-  { value: 'relevance', label: 'Relevancia' },
-  { value: 'price_asc', label: 'Precio: menor a mayor' },
-  { value: 'price_desc', label: 'Precio: mayor a menor' },
+  { value: 'relevance', label: 'Más relevantes' },
+  { value: 'price_asc', label: 'Menor precio' },
+  { value: 'price_desc', label: 'Mayor precio' },
   { value: 'newest', label: 'Más recientes' },
 ];
 
@@ -44,8 +41,9 @@ export function ProductosCatalog() {
   const router = useRouter();
   const pathname = usePathname();
   const gridRef = useRef<HTMLDivElement>(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [onlyInStock, setOnlyInStock] = useState(false);
 
+  /* ---- URL-driven filter state ---- */
   const activeCategories = useMemo<string[]>(() => {
     return searchParams.getAll('categoria').filter(isValidCategoria);
   }, [searchParams]);
@@ -82,17 +80,6 @@ export function ProductosCatalog() {
     [activeCategories, updateParams]
   );
 
-  const toggleMaterial = useCallback(
-    (mat: string) => {
-      if (!isValidMaterial(mat)) return;
-      const next = activeMaterials.includes(mat)
-        ? activeMaterials.filter((m) => m !== mat)
-        : [...activeMaterials, mat];
-      updateParams({ materiales: next });
-    },
-    [activeMaterials, updateParams]
-  );
-
   const handleSort = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const val = e.target.value;
@@ -101,193 +88,185 @@ export function ProductosCatalog() {
     [updateParams]
   );
 
+  /* ---- Derived product list ---- */
   const filterState: FilterState = {
     categories: activeCategories,
     materials: activeMaterials,
     searchQuery: '',
   };
 
-  const filtered = filterProducts(products, filterState);
+  let filtered = filterProducts(products, filterState);
+  if (onlyInStock) {
+    filtered = filtered.filter((p) => p.variants.some((v) => v.inStock));
+  }
   const sorted = sortProducts(filtered, activeSort);
 
+  /* ---- Animate cards on filter change ---- */
   const animationKey = sorted.map((p) => p.id).join(',');
-
-  // Re-animate cards whenever the filtered/sorted list changes
   useEffect(() => {
     const cards = gridRef.current?.querySelectorAll('.catalog-card');
     if (!cards || cards.length === 0) return;
-    gsap.fromTo(cards,
-      { opacity: 0, y: 36, scale: 0.97 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.06, ease: 'power2.out', clearProps: 'transform' }
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 32, scale: 0.97 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.5,
+        stagger: 0.055,
+        ease: 'power2.out',
+        clearProps: 'transform',
+      }
     );
-    // Attach hover overlay listeners
-    cards.forEach((card) => {
-      const overlay = card.querySelector('.product-card__overlay');
-      if (!overlay) return;
-      const enterHandler = () => gsap.to(overlay, { opacity: 1, y: 0, duration: 0.28, ease: 'power2.out' });
-      const leaveHandler = () => gsap.to(overlay, { opacity: 0, y: 8, duration: 0.22, ease: 'power2.in' });
-      card.addEventListener('mouseenter', enterHandler);
-      card.addEventListener('mouseleave', leaveHandler);
-    });
   }, [animationKey]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /* ---- WhatsApp FAB ---- */
+  const waFabUrl = 'https://wa.me/542616918409?text=Hola%20CUYUM%2C%20quiero%20consultar%20sobre%20sus%20productos.';
 
   return (
     <main>
-      <section className="section">
-        <div className="container">
-          {/* Breadcrumb */}
-          <nav className="breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Inicio</Link>
-            <span className="breadcrumb-sep">/</span>
-            <span>Productos</span>
-          </nav>
+      {/* Catalog heading */}
+      <div className="catalog-header" style={{ paddingTop: '96px', paddingBottom: '0' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '0' }}>
+          <h1 className="catalog-header__title">Catálogo</h1>
+          <p className="catalog-header__subtitle">
+            Mobiliario comercial diseñado para elevar la experiencia estética y funcional de su negocio.
+          </p>
+        </div>
+      </div>
 
-          <div style={{ marginBottom: '32px' }}>
-            <h1 className="section-title">Catálogo</h1>
-            <span className="title-underline" />
-          </div>
+      {/* Sticky filter bar */}
+      <div className="filter-bar">
+        <div className="filter-bar__inner">
+          <div className="filter-bar__content">
+            {/* Category pills */}
+            <div className="filter-bar__pills" role="group" aria-label="Filtrar por categoría">
+              {/* "Todos" pill */}
+              <button
+                className={`filter-pill${activeCategories.length === 0 ? ' active' : ''}`}
+                onClick={() => updateParams({ categorias: [] })}
+                aria-pressed={activeCategories.length === 0}
+              >
+                Todos
+              </button>
+              {CATEGORIAS_VALIDAS.map((cat) => {
+                const count = products.filter((p) => p.category === cat).length;
+                if (count === 0) return null;
+                const isActive = activeCategories.includes(cat);
+                return (
+                  <button
+                    key={cat}
+                    className={`filter-pill${isActive ? ' active' : ''}`}
+                    onClick={() => toggleCategory(cat)}
+                    aria-pressed={isActive}
+                  >
+                    {CATEGORY_LABELS[cat] ?? cat}
+                  </button>
+                );
+              })}
+            </div>
 
-          <div className="catalog-layout">
-            {/* Sidebar toggle (mobile only) */}
-            <button
-              className="sidebar-toggle"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              aria-expanded={sidebarOpen}
-            >
-              <span>Filtros{(activeCategories.length + activeMaterials.length) > 0 ? ` (${activeCategories.length + activeMaterials.length})` : ''}</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                {sidebarOpen
-                  ? <polyline points="18 15 12 9 6 15" />
-                  : <polyline points="6 9 12 15 18 9" />
-                }
-              </svg>
-            </button>
-
-            {/* Sidebar */}
-            <aside className={`catalog-sidebar${sidebarOpen ? ' open' : ''}`} aria-label="Filtros">
-              <div className="sidebar-section">
-                <p className="sidebar-title">Categorías</p>
-                {CATEGORIAS_VALIDAS.map((cat) => {
-                  const count = products.filter((p) => p.category === cat).length;
-                  if (count === 0) return null;
-                  const isActive = activeCategories.includes(cat);
-                  return (
-                    <label key={cat} className={`sidebar-filter-item${isActive ? ' active' : ''}`}>
-                      <input
-                        type="checkbox"
-                        checked={isActive}
-                        onChange={() => toggleCategory(cat)}
-                        aria-label={`Filtrar por ${CATEGORY_LABELS[cat] ?? cat}`}
-                      />
-                      {CATEGORY_LABELS[cat] ?? cat}
-                      <span style={{ marginLeft: 'auto', color: 'var(--color-muted)', fontSize: 'var(--text-small)' }}>
-                        ({count})
-                      </span>
-                    </label>
-                  );
-                })}
-              </div>
-
-              <div className="sidebar-section">
-                <p className="sidebar-title">Material</p>
-                {MATERIALES_VALIDOS.map((mat) => {
-                  const count = products.filter((p) => p.variants.some((v) => v.material === mat)).length;
-                  if (count === 0) return null;
-                  const isActive = activeMaterials.includes(mat);
-                  return (
-                    <label key={mat} className={`sidebar-filter-item${isActive ? ' active' : ''}`}>
-                      <input
-                        type="checkbox"
-                        checked={isActive}
-                        onChange={() => toggleMaterial(mat)}
-                        aria-label={`Filtrar por material ${mat}`}
-                      />
-                      {mat}
-                      <span style={{ marginLeft: 'auto', color: 'var(--color-muted)', fontSize: 'var(--text-small)' }}>
-                        ({count})
-                      </span>
-                    </label>
-                  );
-                })}
-              </div>
-
-              {(activeCategories.length > 0 || activeMaterials.length > 0) && (
-                <button
-                  onClick={() => updateParams({ categorias: [], materiales: [] })}
-                  style={{ fontSize: 'var(--text-small)', color: 'var(--color-gold)', fontWeight: 400, letterSpacing: '0.05em', marginTop: '8px', textDecoration: 'underline' }}
+            {/* Controls */}
+            <div className="filter-bar__controls">
+              {/* In-stock toggle */}
+              <label className="stock-toggle" htmlFor="stock-toggle">
+                <span className="stock-toggle__label">Solo en stock</span>
+                <div
+                  id="stock-toggle"
+                  role="switch"
+                  aria-checked={onlyInStock}
+                  className={`stock-toggle__track${onlyInStock ? ' on' : ''}`}
+                  onClick={() => setOnlyInStock(!onlyInStock)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setOnlyInStock(!onlyInStock); }}
+                  tabIndex={0}
+                  style={{ cursor: 'pointer' }}
                 >
-                  Limpiar filtros
-                </button>
-              )}
-            </aside>
+                  <div className="stock-toggle__thumb" />
+                </div>
+              </label>
 
-            {/* Main */}
-            <div>
-              <div className="sort-bar">
-                <p className="sort-bar__count">
-                  {sorted.length} {sorted.length === 1 ? 'producto' : 'productos'} encontrados
-                </p>
-                <label htmlFor="sort-select" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-small)', color: 'var(--color-muted)' }}>
-                  Ordenar:
-                  <select id="sort-select" className="sort-select" value={activeSort} onChange={handleSort}>
-                    {SORT_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
-                  </select>
-                </label>
+              {/* Sort dropdown */}
+              <div className="sort-dropdown">
+                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--color-primary)' }}>
+                  sort
+                </span>
+                <select
+                  id="sort-select"
+                  value={activeSort}
+                  onChange={handleSort}
+                  aria-label="Ordenar productos"
+                >
+                  {SORT_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
               </div>
-
-              {sorted.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--color-muted)' }}>
-                  <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', marginBottom: '8px' }}>Sin resultados</p>
-                  <p style={{ fontSize: 'var(--text-body)', fontWeight: 300 }}>Probá con otros filtros</p>
-                </div>
-              ) : (
-                <div className="products-grid" ref={gridRef}>
-                  {sorted.map((product) => {
-                    const imageUrl = product.variants[0]?.images[0] ?? '';
-                    return (
-                      <Link key={product.id} href={`/productos/${product.slug}`} className="product-card catalog-card" style={{ display: 'block' }}>
-                        <div className="product-card__image-wrap">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={imgPath(imageUrl)} alt={product.name} loading="lazy" />
-                          <div className="product-card__overlay" aria-hidden="true">
-                            <span>Ver detalles</span>
-                          </div>
-                          <div className="product-card__badges">
-                            <span className="badge badge-free-shipping">Envío gratis</span>
-                            {product.featured && <span className="badge badge-sale">Destacado</span>}
-                          </div>
-                        </div>
-                        <div className="product-card__body">
-                          <p className="product-card__name">{product.name}</p>
-                          <p style={{ fontSize: 'var(--text-small)', color: 'var(--color-muted)', fontWeight: 300, marginBottom: '8px', lineHeight: 1.4 }}>
-                            {product.shortDescription}
-                          </p>
-                          <p className="product-card__price">{formatPrice(product.basePrice)}</p>
-                          <div className="product-card__swatches">
-                            {product.variants.slice(0, 5).map((v) => (
-                              <span
-                                key={v.id}
-                                className="product-card__swatch"
-                                style={{ background: v.colorHex }}
-                                title={v.color}
-                              />
-                            ))}
-                            {product.variants.length > 5 && (
-                              <span className="product-card__swatch-more">+{product.variants.length - 5}</span>
-                            )}
-                          </div>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
             </div>
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* Count */}
+      <div className="catalog-count">
+        <span>{sorted.length}</span>{' '}
+        {sorted.length === 1 ? 'producto encontrado' : 'productos encontrados'}
+        {(activeCategories.length > 0 || activeMaterials.length > 0 || onlyInStock) && (
+          <button
+            onClick={() => { updateParams({ categorias: [], materiales: [] }); setOnlyInStock(false); }}
+            style={{
+              marginLeft: '12px',
+              color: 'var(--color-primary)',
+              fontSize: '0.7rem',
+              fontWeight: 600,
+              textDecoration: 'underline',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-label)',
+              letterSpacing: '0.08em',
+            }}
+          >
+            Limpiar filtros
+          </button>
+        )}
+      </div>
+
+      {/* Product grid */}
+      {sorted.length === 0 ? (
+        <div className="catalog-empty">
+          <span
+            className="material-symbols-outlined"
+            style={{ fontSize: '56px', color: 'var(--color-outline-variant)', marginBottom: '16px', display: 'block' }}
+          >
+            search_off
+          </span>
+          <h3>Sin resultados</h3>
+          <p>Probá con otros filtros o explorá todo el catálogo.</p>
+        </div>
+      ) : (
+        <div className="catalog-grid" ref={gridRef}>
+          {sorted.map((product) => (
+            <ProductCard key={product.id} product={product} extraClass="catalog-card" />
+          ))}
+        </div>
+      )}
+
+      {/* WhatsApp FAB */}
+      <a
+        href={waFabUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="whatsapp-fab"
+        aria-label="Consultar por WhatsApp"
+        title="Consultar por WhatsApp"
+      >
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+      </a>
     </main>
   );
 }
