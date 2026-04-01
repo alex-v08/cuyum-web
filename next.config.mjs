@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const BASE_PATH = '/cuyum-web';
+// basePath solo en producción — en dev los assets se sirven desde / sin prefijo
+const isProd = process.env.NODE_ENV === 'production';
+const BASE_PATH = isProd ? '/cuyum-web' : '';
 
 const nextConfig = {
   output: 'export',

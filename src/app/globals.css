@@ -152,7 +152,7 @@ input, select, textarea { font-family: inherit; }
 
 .btn-whatsapp {
   background: var(--color-whatsapp);
-  color: white;
+  color: var(--color-white);
   border-color: var(--color-whatsapp);
 }
 .btn-whatsapp:hover {
@@ -630,8 +630,8 @@ input, select, textarea { font-family: inherit; }
 .pd-btn--dark:hover { opacity: 0.85; }
 .pd-btn--dark:disabled { opacity: 0.4; cursor: not-allowed; }
 .pd-btn--wa {
-  background: #25d366;
-  color: #fff;
+  background: var(--color-whatsapp);
+  color: var(--color-white);
 }
 .pd-btn--wa:hover { opacity: 0.9; }
 
@@ -942,7 +942,7 @@ input, select, textarea { font-family: inherit; }
   height: 52px;
   border-radius: 50%;
   background: var(--color-whatsapp);
-  color: white;
+  color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;

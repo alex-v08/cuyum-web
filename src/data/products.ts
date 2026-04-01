@@ -28,7 +28,7 @@ export const products: Product[] = [
         colorHex: "#f5f5f0",
         priceModifier: 0,
         images: [
-          "/images/odoo/caramelera-sobre-mostrador.jpg",
+          "/images/odoo/caramelera-sobre-mostrador.webp",
         ],
         inStock: true,
         sku: "CSM-BL-FOL",
@@ -40,7 +40,7 @@ export const products: Product[] = [
         colorHex: "#8a8a8a",
         priceModifier: 0,
         images: [
-          "/images/odoo/caramelera-sobre-mostrador.jpg",
+          "/images/odoo/caramelera-sobre-mostrador.webp",
         ],
         inStock: true,
         sku: "CSM-GR-FOL",
@@ -52,7 +52,7 @@ export const products: Product[] = [
         colorHex: "#6b4226",
         priceModifier: 0,
         images: [
-          "/images/odoo/caramelera-sobre-mostrador.jpg",
+          "/images/odoo/caramelera-sobre-mostrador.webp",
         ],
         inStock: true,
         sku: "CSM-NG-FOL",
@@ -91,7 +91,7 @@ export const products: Product[] = [
         colorHex: "#f5f5f0",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-020.jpg",
+          "/images/odoo/estanteria-020.webp",
         ],
         inStock: true,
         sku: "E020-BL-FOL",
@@ -103,7 +103,7 @@ export const products: Product[] = [
         colorHex: "#8a8a8a",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-020.jpg",
+          "/images/odoo/estanteria-020.webp",
         ],
         inStock: true,
         sku: "E020-GR-FOL",
@@ -115,7 +115,7 @@ export const products: Product[] = [
         colorHex: "#6b4226",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-020.jpg",
+          "/images/odoo/estanteria-020.webp",
         ],
         inStock: true,
         sku: "E020-NG-FOL",
@@ -154,7 +154,7 @@ export const products: Product[] = [
         colorHex: "#f5f5f0",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-030.jpg",
+          "/images/odoo/estanteria-030.webp",
         ],
         inStock: true,
         sku: "E030-BL-FOL",
@@ -166,7 +166,7 @@ export const products: Product[] = [
         colorHex: "#6b4226",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-030.jpg",
+          "/images/odoo/estanteria-030.webp",
         ],
         inStock: true,
         sku: "E030-NG-FOL",
@@ -178,7 +178,7 @@ export const products: Product[] = [
         colorHex: "#2c1810",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-030.jpg",
+          "/images/odoo/estanteria-030.webp",
         ],
         inStock: true,
         sku: "E030-WE-FOL",
@@ -217,7 +217,7 @@ export const products: Product[] = [
         colorHex: "#f5f5f0",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-180.jpg",
+          "/images/odoo/estanteria-180.webp",
         ],
         inStock: true,
         sku: "E180-BL-FOL",
@@ -229,7 +229,7 @@ export const products: Product[] = [
         colorHex: "#8a8a8a",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-180.jpg",
+          "/images/odoo/estanteria-180.webp",
         ],
         inStock: true,
         sku: "E180-GR-FOL",
@@ -241,7 +241,7 @@ export const products: Product[] = [
         colorHex: "#6b4226",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-180.jpg",
+          "/images/odoo/estanteria-180.webp",
         ],
         inStock: true,
         sku: "E180-NG-FOL",
@@ -280,7 +280,7 @@ export const products: Product[] = [
         colorHex: "#f5f5f0",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-180x020.jpg",
+          "/images/odoo/estanteria-180x020.webp",
         ],
         inStock: true,
         sku: "E180X-BL-FOL",
@@ -292,7 +292,7 @@ export const products: Product[] = [
         colorHex: "#8a8a8a",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-180x020.jpg",
+          "/images/odoo/estanteria-180x020.webp",
         ],
         inStock: true,
         sku: "E180X-GR-FOL",
@@ -304,7 +304,7 @@ export const products: Product[] = [
         colorHex: "#6b4226",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-180x020.jpg",
+          "/images/odoo/estanteria-180x020.webp",
         ],
         inStock: true,
         sku: "E180X-NG-FOL",
@@ -343,7 +343,7 @@ export const products: Product[] = [
         colorHex: "#f5f5f0",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-cubo.jpg",
+          "/images/odoo/estanteria-cubo.webp",
         ],
         inStock: true,
         sku: "ECUB-BL-FOL",
@@ -355,7 +355,7 @@ export const products: Product[] = [
         colorHex: "#a0522d",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-cubo.jpg",
+          "/images/odoo/estanteria-cubo.webp",
         ],
         inStock: true,
         sku: "ECUB-CE-FOL",
@@ -367,7 +367,7 @@ export const products: Product[] = [
         colorHex: "#d4a574",
         priceModifier: 0,
         images: [
-          "/images/odoo/estanteria-cubo.jpg",
+          "/images/odoo/estanteria-cubo.webp",
         ],
         inStock: true,
         sku: "ECUB-NT-FOL",
@@ -407,7 +407,7 @@ export const products: Product[] = [
         colorHex: "#f5f5f0",
         priceModifier: 0,
         images: [
-          "/images/odoo/mostrador-vitrina-alto.jpg",
+          "/images/odoo/mostrador-vitrina-alto.webp",
         ],
         inStock: true,
         sku: "MVA-BL-MEL",
@@ -419,7 +419,7 @@ export const products: Product[] = [
         colorHex: "#6b4226",
         priceModifier: 0,
         images: [
-          "/images/odoo/mostrador-vitrina-alto.jpg",
+          "/images/odoo/mostrador-vitrina-alto.webp",
         ],
         inStock: true,
         sku: "MVA-NG-MEL",
@@ -431,7 +431,7 @@ export const products: Product[] = [
         colorHex: "#2c1810",
         priceModifier: 0,
         images: [
-          "/images/odoo/mostrador-vitrina-alto.jpg",
+          "/images/odoo/mostrador-vitrina-alto.webp",
         ],
         inStock: true,
         sku: "MVA-WE-MEL",
@@ -471,7 +471,7 @@ export const products: Product[] = [
         colorHex: "#f5f5f0",
         priceModifier: 0,
         images: [
-          "/images/odoo/mostrador-vitrina-facturero-premium.jpg",
+          "/images/odoo/mostrador-vitrina-facturero-premium.webp",
         ],
         inStock: true,
         sku: "MVF-BL-MDF",
@@ -483,7 +483,7 @@ export const products: Product[] = [
         colorHex: "#8a8a8a",
         priceModifier: 0,
         images: [
-          "/images/odoo/mostrador-vitrina-facturero-premium.jpg",
+          "/images/odoo/mostrador-vitrina-facturero-premium.webp",
         ],
         inStock: true,
         sku: "MVF-GR-MDF",
@@ -495,7 +495,7 @@ export const products: Product[] = [
         colorHex: "#6b4226",
         priceModifier: 0,
         images: [
-          "/images/odoo/mostrador-vitrina-facturero-premium.jpg",
+          "/images/odoo/mostrador-vitrina-facturero-premium.webp",
         ],
         inStock: true,
         sku: "MVF-NG-MDF",
@@ -535,7 +535,7 @@ export const products: Product[] = [
         colorHex: "#f5f5f0",
         priceModifier: 0,
         images: [
-          "/images/odoo/panera-contrapared-premium.jpg",
+          "/images/odoo/panera-contrapared-premium.webp",
         ],
         inStock: true,
         sku: "PCP-BL-MDF",
@@ -547,7 +547,7 @@ export const products: Product[] = [
         colorHex: "#8a8a8a",
         priceModifier: 0,
         images: [
-          "/images/odoo/panera-contrapared-premium.jpg",
+          "/images/odoo/panera-contrapared-premium.webp",
         ],
         inStock: true,
         sku: "PCP-GR-MDF",
@@ -559,7 +559,7 @@ export const products: Product[] = [
         colorHex: "#6b4226",
         priceModifier: 0,
         images: [
-          "/images/odoo/panera-contrapared-premium.jpg",
+          "/images/odoo/panera-contrapared-premium.webp",
         ],
         inStock: true,
         sku: "PCP-NG-MDF",
@@ -598,7 +598,7 @@ export const products: Product[] = [
         colorHex: "#f5f5f0",
         priceModifier: 0,
         images: [
-          "/images/odoo/vitrina-estantes-de-vidrio.jpg",
+          "/images/odoo/vitrina-estantes-de-vidrio.webp",
         ],
         inStock: true,
         sku: "VEV-BL-FOL",
@@ -610,7 +610,7 @@ export const products: Product[] = [
         colorHex: "#8a8a8a",
         priceModifier: 0,
         images: [
-          "/images/odoo/vitrina-estantes-de-vidrio.jpg",
+          "/images/odoo/vitrina-estantes-de-vidrio.webp",
         ],
         inStock: true,
         sku: "VEV-GR-FOL",
@@ -622,7 +622,7 @@ export const products: Product[] = [
         colorHex: "#6b4226",
         priceModifier: 0,
         images: [
-          "/images/odoo/vitrina-estantes-de-vidrio.jpg",
+          "/images/odoo/vitrina-estantes-de-vidrio.webp",
         ],
         inStock: true,
         sku: "VEV-NG-FOL",
