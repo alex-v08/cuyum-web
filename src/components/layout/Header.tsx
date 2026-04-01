@@ -30,8 +30,13 @@ export function Header() {
         <div className="container">
           <div className="header__inner">
             {/* Logo */}
-            <Link href="/" className="header__logo">
-              CUYUM<span>.</span>
+            <Link href="/" className="header__logo" aria-label="CUYUM Amoblamientos — Inicio">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/cuyum_amoblamientos_2026-03-02_19-57-44_UTC_profile_pic.jpg"
+                alt="CUYUM Amoblamientos"
+                style={{ height: '44px', width: 'auto', display: 'block' }}
+              />
             </Link>
 
             {/* Desktop Nav */}
@@ -49,6 +54,11 @@ export function Header() {
 
             {/* Actions */}
             <div className="header__actions">
+              {totalItems > 0 && (
+                <Link href="/checkout" className="header__nav-link" style={{ fontSize: 'var(--text-small)', letterSpacing: '0.08em' }}>
+                  Checkout
+                </Link>
+              )}
               {/* WhatsApp */}
               <a
                 href="https://wa.me/542616918409"

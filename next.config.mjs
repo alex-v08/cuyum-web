@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  basePath: '/cuyum-web',
+  assetPrefix: '/cuyum-web',
   images: {
     unoptimized: true,
     remotePatterns: [

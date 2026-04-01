@@ -9,7 +9,7 @@ export const BREAKPOINTS = {
   desktop: 1280,
 } as const;
 
-export const CATEGORIAS_VALIDAS = ['mostradores', 'exhibidores', 'vitrinas', 'estanterias', 'gondolas', 'mesas'] as const;
+export const CATEGORIAS_VALIDAS = ['mostradores', 'exhibidores', 'vitrinas', 'estanterias', 'gondolas', 'mesas', 'hogar'] as const;
 export const MATERIALES_VALIDOS = ['Melamina', 'MDF', 'Folio', 'Vidrio'] as const;
 
 export const CART_STORAGE_KEY = 'cuyum_cart_v1' as const;

@@ -1,6 +1,7 @@
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { CartDrawer } from '@/components/layout/CartDrawer';
+import { CategoryCarousel } from '@/components/home/CategoryCarousel';
 import { getFeaturedProducts } from '@/lib/products';
 import { formatCurrencyARS } from '@/lib/utils';
 import Link from 'next/link';
@@ -131,6 +132,17 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Category Carousel */}
+        <section className="section" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
+          <div className="container">
+            <div style={{ marginBottom: '24px' }}>
+              <p className="section-title">Explorar por Categoría</p>
+              <span className="title-underline" />
+            </div>
+            <CategoryCarousel />
           </div>
         </section>
 

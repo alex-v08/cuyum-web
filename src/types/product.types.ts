@@ -1,6 +1,6 @@
 export type MaterialType = 'Melamina' | 'MDF' | 'Folio' | 'Vidrio';
 
-export type CategorySlug = 'mostradores' | 'exhibidores' | 'vitrinas' | 'estanterias' | 'gondolas' | 'mesas';
+export type CategorySlug = 'mostradores' | 'exhibidores' | 'vitrinas' | 'estanterias' | 'gondolas' | 'mesas' | 'hogar';
 
 export interface Variant {
   id: string;
