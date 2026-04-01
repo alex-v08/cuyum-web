@@ -1,13 +1,17 @@
 'use client';
 
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useRef, useEffect } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { products } from '@/data/products';
 import { filterProducts, sortProducts, formatPrice } from '@/lib/products';
 import { CATEGORIAS_VALIDAS, MATERIALES_VALIDOS } from '@/lib/constants';
 import type { FilterState, SortOption } from '@/types/product.types';
 import { imgPath } from '@/lib/assetPath';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CATEGORY_LABELS: Record<string, string> = {
   mostradores: 'Mostradores',
@@ -39,6 +43,17 @@ export function ProductosCatalog() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  // Re-animate cards whenever the filtered list changes
+  useEffect(() => {
+    const cards = gridRef.current?.querySelectorAll('.catalog-card');
+    if (!cards || cards.length === 0) return;
+    gsap.fromTo(cards,
+      { opacity: 0, y: 36, scale: 0.97 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.06, ease: 'power2.out', clearProps: 'transform' }
+    );
+  });
 
   const activeCategories = useMemo<string[]>(() => {
     return searchParams.getAll('categoria').filter(isValidCategoria);
@@ -201,11 +216,11 @@ export function ProductosCatalog() {
                   <p style={{ fontSize: 'var(--text-body)', fontWeight: 300 }}>Probá con otros filtros</p>
                 </div>
               ) : (
-                <div className="products-grid">
+                <div className="products-grid" ref={gridRef}>
                   {sorted.map((product) => {
                     const imageUrl = product.variants[0]?.images[0] ?? '';
                     return (
-                      <Link key={product.id} href={`/productos/${product.slug}`} className="product-card" style={{ display: 'block' }}>
+                      <Link key={product.id} href={`/productos/${product.slug}`} className="product-card catalog-card" style={{ display: 'block' }}>
                         <div className="product-card__image-wrap">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={imgPath(imageUrl)} alt={product.name} loading="lazy" />

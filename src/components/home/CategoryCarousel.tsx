@@ -2,7 +2,12 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import { imgPath } from '@/lib/assetPath';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface CategorySlide {
   image: string;
@@ -21,7 +26,19 @@ const SLIDES: CategorySlide[] = [
 ];
 
 export function CategoryCarousel() {
+  const wrapRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.fromTo('.carousel-slide',
+      { opacity: 0, x: 60, scale: 0.95 },
+      {
+        opacity: 1, x: 0, scale: 1,
+        duration: 0.6, stagger: 0.08, ease: 'power2.out',
+        scrollTrigger: { trigger: wrapRef.current, start: 'top 85%' },
+      }
+    );
+  }, { scope: wrapRef });
 
   const scroll = (dir: 'prev' | 'next') => {
     const track = trackRef.current;
@@ -33,7 +50,7 @@ export function CategoryCarousel() {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div ref={wrapRef} style={{ position: 'relative' }}>
       <div
         ref={trackRef}
         style={{
@@ -49,6 +66,7 @@ export function CategoryCarousel() {
           <Link
             key={slide.href + slide.label}
             href={slide.href}
+            className="carousel-slide"
             style={{
               flex: '0 0 220px',
               scrollSnapAlign: 'start',
