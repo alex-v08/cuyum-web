@@ -46,16 +46,6 @@ export function ProductosCatalog() {
   const gridRef = useRef<HTMLDivElement>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Re-animate cards whenever the filtered list changes
-  useEffect(() => {
-    const cards = gridRef.current?.querySelectorAll('.catalog-card');
-    if (!cards || cards.length === 0) return;
-    gsap.fromTo(cards,
-      { opacity: 0, y: 36, scale: 0.97 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.06, ease: 'power2.out', clearProps: 'transform' }
-    );
-  });
-
   const activeCategories = useMemo<string[]>(() => {
     return searchParams.getAll('categoria').filter(isValidCategoria);
   }, [searchParams]);
@@ -119,6 +109,27 @@ export function ProductosCatalog() {
 
   const filtered = filterProducts(products, filterState);
   const sorted = sortProducts(filtered, activeSort);
+
+  const animationKey = sorted.map((p) => p.id).join(',');
+
+  // Re-animate cards whenever the filtered/sorted list changes
+  useEffect(() => {
+    const cards = gridRef.current?.querySelectorAll('.catalog-card');
+    if (!cards || cards.length === 0) return;
+    gsap.fromTo(cards,
+      { opacity: 0, y: 36, scale: 0.97 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.06, ease: 'power2.out', clearProps: 'transform' }
+    );
+    // Attach hover overlay listeners
+    cards.forEach((card) => {
+      const overlay = card.querySelector('.product-card__overlay');
+      if (!overlay) return;
+      const enterHandler = () => gsap.to(overlay, { opacity: 1, y: 0, duration: 0.28, ease: 'power2.out' });
+      const leaveHandler = () => gsap.to(overlay, { opacity: 0, y: 8, duration: 0.22, ease: 'power2.in' });
+      card.addEventListener('mouseenter', enterHandler);
+      card.addEventListener('mouseleave', leaveHandler);
+    });
+  }, [animationKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <main>
@@ -240,6 +251,9 @@ export function ProductosCatalog() {
                         <div className="product-card__image-wrap">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={imgPath(imageUrl)} alt={product.name} loading="lazy" />
+                          <div className="product-card__overlay" aria-hidden="true">
+                            <span>Ver detalles</span>
+                          </div>
                           <div className="product-card__badges">
                             <span className="badge badge-free-shipping">Envío gratis</span>
                             {product.featured && <span className="badge badge-sale">Destacado</span>}
@@ -251,6 +265,19 @@ export function ProductosCatalog() {
                             {product.shortDescription}
                           </p>
                           <p className="product-card__price">{formatPrice(product.basePrice)}</p>
+                          <div className="product-card__swatches">
+                            {product.variants.slice(0, 5).map((v) => (
+                              <span
+                                key={v.id}
+                                className="product-card__swatch"
+                                style={{ background: v.colorHex }}
+                                title={v.color}
+                              />
+                            ))}
+                            {product.variants.length > 5 && (
+                              <span className="product-card__swatch-more">+{product.variants.length - 5}</span>
+                            )}
+                          </div>
                         </div>
                       </Link>
                     );

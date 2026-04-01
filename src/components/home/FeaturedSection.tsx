@@ -41,6 +41,19 @@ export function FeaturedSection() {
         scrollTrigger: { trigger: '.featured-grid', start: 'top 85%' },
       }
     );
+
+    // Hover overlay reveal per card
+    const cards = ref.current?.querySelectorAll('.featured-card');
+    cards?.forEach((card) => {
+      const overlay = card.querySelector('.product-card__overlay');
+      if (!overlay) return;
+      card.addEventListener('mouseenter', () => {
+        gsap.to(overlay, { opacity: 1, y: 0, duration: 0.28, ease: 'power2.out' });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(overlay, { opacity: 0, y: 8, duration: 0.22, ease: 'power2.in' });
+      });
+    });
   }, { scope: ref });
 
   return (
@@ -61,6 +74,9 @@ export function FeaturedSection() {
                 <div className="product-card__image-wrap">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={imgPath(imageUrl)} alt={product.name} loading="lazy" />
+                  <div className="product-card__overlay" aria-hidden="true">
+                    <span>Ver detalles</span>
+                  </div>
                   <div className="product-card__badges">
                     <span className="badge badge-free-shipping">Envío gratis</span>
                     {product.featured && <span className="badge badge-sale">Destacado</span>}
@@ -72,6 +88,19 @@ export function FeaturedSection() {
                     {product.shortDescription}
                   </p>
                   <p className="product-card__price">{formatCurrencyARS(product.basePrice)}</p>
+                  <div className="product-card__swatches">
+                    {product.variants.slice(0, 5).map((v) => (
+                      <span
+                        key={v.id}
+                        className="product-card__swatch"
+                        style={{ background: v.colorHex }}
+                        title={v.color}
+                      />
+                    ))}
+                    {product.variants.length > 5 && (
+                      <span className="product-card__swatch-more">+{product.variants.length - 5}</span>
+                    )}
+                  </div>
                 </div>
               </Link>
             );

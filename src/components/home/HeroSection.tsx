@@ -3,7 +3,10 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function HeroSection() {
   const ref = useRef<HTMLElement>(null);
@@ -29,6 +32,18 @@ export function HeroSection() {
       { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
       '-=0.3'
     );
+
+    // Parallax: hero content scrolls slower than page
+    gsap.to(ref.current, {
+      yPercent: -15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: ref.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
   }, { scope: ref });
 
   return (
