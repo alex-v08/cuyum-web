@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { products } from '@/data/products';
 import { getProductBySlug, getRelatedProducts, formatPrice } from '@/lib/products';
+import { imgPath } from '@/lib/assetPath';
 import { ProductDetailClient } from '@/components/product/ProductDetailClient';
 
 interface Props {
@@ -86,7 +87,7 @@ export default async function ProductDetailPage({ params }: Props) {
                   >
                     <div className="product-card__image-wrap">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={imageUrl} alt={rel.name} loading="lazy" />
+                      <img src={imgPath(imageUrl)} alt={rel.name} loading="lazy" />
                       <div className="product-card__badges">
                         <span className="badge badge-free-shipping">Envío gratis</span>
                       </div>

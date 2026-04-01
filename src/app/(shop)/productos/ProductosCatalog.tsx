@@ -7,6 +7,7 @@ import { products } from '@/data/products';
 import { filterProducts, sortProducts, formatPrice } from '@/lib/products';
 import { CATEGORIAS_VALIDAS, MATERIALES_VALIDOS } from '@/lib/constants';
 import type { FilterState, SortOption } from '@/types/product.types';
+import { imgPath } from '@/lib/assetPath';
 
 const CATEGORY_LABELS: Record<string, string> = {
   mostradores: 'Mostradores',
@@ -207,7 +208,7 @@ export function ProductosCatalog() {
                       <Link key={product.id} href={`/productos/${product.slug}`} className="product-card" style={{ display: 'block' }}>
                         <div className="product-card__image-wrap">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={imageUrl} alt={product.name} loading="lazy" />
+                          <img src={imgPath(imageUrl)} alt={product.name} loading="lazy" />
                           <div className="product-card__badges">
                             <span className="badge badge-free-shipping">Envío gratis</span>
                             {product.featured && <span className="badge badge-sale">Destacado</span>}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
+import { imgPath } from '@/lib/assetPath';
 
 const NAV_LINKS = [
   { href: '/', label: 'Inicio' },
@@ -33,7 +34,7 @@ export function Header() {
             <Link href="/" className="header__logo" aria-label="CUYUM Amoblamientos — Inicio">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/cuyum_amoblamientos_2026-03-02_19-57-44_UTC_profile_pic.jpg"
+                src={imgPath('/images/cuyum_amoblamientos_2026-03-02_19-57-44_UTC_profile_pic.jpg')}
                 alt="CUYUM Amoblamientos"
                 style={{ height: '44px', width: 'auto', display: 'block' }}
               />

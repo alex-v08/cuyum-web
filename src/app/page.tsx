@@ -4,6 +4,7 @@ import { CartDrawer } from '@/components/layout/CartDrawer';
 import { CategoryCarousel } from '@/components/home/CategoryCarousel';
 import { getFeaturedProducts } from '@/lib/products';
 import { formatCurrencyARS } from '@/lib/utils';
+import { imgPath } from '@/lib/assetPath';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
@@ -179,7 +180,7 @@ export default function HomePage() {
                   >
                     <div className="product-card__image-wrap">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={imageUrl} alt={product.name} loading="lazy" />
+                      <img src={imgPath(imageUrl)} alt={product.name} loading="lazy" />
                       <div className="product-card__badges">
                         <span className="badge badge-free-shipping">Envío gratis</span>
                         {product.featured && (

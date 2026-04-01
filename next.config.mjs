@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
+const BASE_PATH = '/cuyum-web';
+
 const nextConfig = {
   output: 'export',
-  basePath: '/cuyum-web',
-  assetPrefix: '/cuyum-web',
+  basePath: BASE_PATH,
+  assetPrefix: BASE_PATH,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: BASE_PATH,
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/products';
 import { WHATSAPP_NUMBER } from '@/lib/constants';
+import { imgPath } from '@/lib/assetPath';
 
 interface CustomerData {
   nombre: string;
@@ -168,7 +169,7 @@ export function CheckoutClient() {
               >
                 {item.imageUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={item.imageUrl} alt={item.productName} style={{ width: '64px', height: '64px', objectFit: 'cover', flexShrink: 0 }} />
+                  <img src={imgPath(item.imageUrl)} alt={item.productName} style={{ width: '64px', height: '64px', objectFit: 'cover', flexShrink: 0 }} />
                 )}
                 <div style={{ flex: 1 }}>
                   <p style={{ fontWeight: 500, marginBottom: '2px' }}>{item.productName}</p>

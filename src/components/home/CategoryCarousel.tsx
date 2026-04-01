@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
+import { imgPath } from '@/lib/assetPath';
 
 interface CategorySlide {
   image: string;
@@ -61,7 +62,7 @@ export function CategoryCarousel() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={slide.image}
+              src={imgPath(slide.image)}
               alt={slide.label}
               loading="lazy"
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: 0.85 }}
